@@ -7,4 +7,6 @@ import (
 
 func init() {
     beego.Router("/", &controllers.MainController{})
+    beego.Router("/albums",&controllers.PhotoController{},"*:ListPhotos")
+	beego.Router("/album/post",&controllers.PhotoController{},"*:PostPhoto")
 }
