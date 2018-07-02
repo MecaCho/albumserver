@@ -11,13 +11,13 @@ import (
 
 
 
-type PhotoController struct {
+type AlbumController struct {
 	beego.Controller
 }
 
 
 
-func (c *PhotoController) Photopage() {
+func (c *AlbumController) Albumpage() {
 
 	c.Data["Username"] = "loongc"
 
@@ -29,25 +29,26 @@ func (c *PhotoController) Photopage() {
 
 }
 
-type PhotoList struct {
+type AlbumList struct {
 
 }
 
-type Photo struct {
+type Album struct {
 	IncID int64
 	Id string
 	Name string
 	UploadTime string
 	Size int
+	Photos []Photo
 }
 
-var PhotosList []Photo
-var PhotoNum int64
+var TempAlbumList []Album
+var AlbumNum int64
 
 
-func (c *PhotoController) ListPhotos() {
-	fmt.Println("Photo list : ",PhotosList)
-	ret,err := json.Marshal(&PhotosList)
+func (c *AlbumController) ListAlbums() {
+	fmt.Println("Album list : ",TempAlbumList)
+	ret,err := json.Marshal(&TempAlbumList)
 	if err != nil{
 		fmt.Println("Json marshal error : ",err.Error())
 	}
@@ -56,9 +57,9 @@ func (c *PhotoController) ListPhotos() {
 	return
 }
 
-func (c *PhotoController) GetPhoto() {
-	fmt.Println("Photo list : ",PhotosList)
-	ret,err := json.Marshal(&PhotosList)
+func (c *AlbumController) GetAlbum() {
+	fmt.Println("Album list : ",TempAlbumList)
+	ret,err := json.Marshal(&TempAlbumList)
 	if err != nil{
 		fmt.Println("Json marshal error : ",err.Error())
 	}
@@ -67,9 +68,9 @@ func (c *PhotoController) GetPhoto() {
 	return
 }
 
-func (c *PhotoController) DeletePhoto() {
-	fmt.Println("Photo list : ",PhotosList)
-	ret,err := json.Marshal(&PhotosList)
+func (c *AlbumController) DeleteAlbum() {
+	fmt.Println("Album list : ",TempAlbumList)
+	ret,err := json.Marshal(&TempAlbumList)
 	if err != nil{
 		fmt.Println("Json marshal error : ",err.Error())
 	}
@@ -78,9 +79,9 @@ func (c *PhotoController) DeletePhoto() {
 	return
 }
 
-func (c *PhotoController) UploadPhoto() {
-	fmt.Println("Photo list : ",PhotosList)
-	ret,err := json.Marshal(&PhotosList)
+func (c *AlbumController) UploadAlbum() {
+	fmt.Println("Album list : ",TempAlbumList)
+	ret,err := json.Marshal(&TempAlbumList)
 	if err != nil{
 		fmt.Println("Json marshal error : ",err.Error())
 	}
@@ -89,15 +90,15 @@ func (c *PhotoController) UploadPhoto() {
 	return
 }
 
-func (c PhotoController) PostPhoto(){
+func (c AlbumController) PostAlbum(){
 	photoID := strconv.Itoa(rand.Int())
 	photoUploadTime := time.Now().String()
-	PhotoNum = int64(len(PhotosList))
-	PhotoNum++
-	newPhoto := Photo{PhotoNum,photoID,"photo name",photoUploadTime,0}
-	fmt.Println(newPhoto)
-	PhotosList = append(PhotosList, newPhoto)
-	fmt.Println(PhotosList)
+	AlbumNum = int64(len(TempAlbumList))
+	AlbumNum++
+	newAlbum := Album{AlbumNum,photoID,"album name",photoUploadTime,0,nil}
+	fmt.Println(newAlbum)
+	TempAlbumList = append(TempAlbumList, newAlbum)
+	fmt.Println(TempAlbumList)
 	c.Ctx.Output.Body([]byte(photoID))
 
 	return
