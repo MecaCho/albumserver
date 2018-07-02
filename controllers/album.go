@@ -40,6 +40,7 @@ type Album struct {
 	UploadTime string
 	Size int
 	Photos []Photo
+	UserID string
 }
 
 var TempAlbumList []Album
@@ -47,8 +48,15 @@ var AlbumNum int64
 
 
 func (c *AlbumController) ListAlbums() {
-	fmt.Println("Album list : ",TempAlbumList)
-	ret,err := json.Marshal(&TempAlbumList)
+	userId := c.GetString(":user_id")
+	fmt.Println("List Album list : ",TempAlbumList)
+	tempAlbumList := []Album{}
+	for _,v := range(TempAlbumList){
+		if v.UserID == userId{
+			tempAlbumList = append(tempAlbumList, v)
+		}
+	}
+	ret,err := json.Marshal(&tempAlbumList)
 	if err != nil{
 		fmt.Println("Json marshal error : ",err.Error())
 	}
@@ -58,7 +66,7 @@ func (c *AlbumController) ListAlbums() {
 }
 
 func (c *AlbumController) GetAlbum() {
-	fmt.Println("Album list : ",TempAlbumList)
+	fmt.Println("Get Album list : ",TempAlbumList)
 	ret,err := json.Marshal(&TempAlbumList)
 	if err != nil{
 		fmt.Println("Json marshal error : ",err.Error())
@@ -69,7 +77,7 @@ func (c *AlbumController) GetAlbum() {
 }
 
 func (c *AlbumController) DeleteAlbum() {
-	fmt.Println("Album list : ",TempAlbumList)
+	fmt.Println("Delete Album list : ",TempAlbumList)
 	ret,err := json.Marshal(&TempAlbumList)
 	if err != nil{
 		fmt.Println("Json marshal error : ",err.Error())
@@ -80,7 +88,7 @@ func (c *AlbumController) DeleteAlbum() {
 }
 
 func (c *AlbumController) UploadAlbum() {
-	fmt.Println("Album list : ",TempAlbumList)
+	fmt.Println("Upload Album list : ",TempAlbumList)
 	ret,err := json.Marshal(&TempAlbumList)
 	if err != nil{
 		fmt.Println("Json marshal error : ",err.Error())
@@ -91,16 +99,16 @@ func (c *AlbumController) UploadAlbum() {
 }
 
 func (c AlbumController) PostAlbum(){
+	userId := c.GetString(":user_id")
 	photoID := strconv.Itoa(rand.Int())
 	photoUploadTime := time.Now().String()
 	AlbumNum = int64(len(TempAlbumList))
 	AlbumNum++
-	newAlbum := Album{AlbumNum,photoID,"album name",photoUploadTime,0,nil}
+	newAlbum := Album{AlbumNum,photoID,"album name",photoUploadTime,0,nil,userId}
 	fmt.Println(newAlbum)
 	TempAlbumList = append(TempAlbumList, newAlbum)
 	fmt.Println(TempAlbumList)
 	c.Ctx.Output.Body([]byte(photoID))
 
 	return
-
 }
