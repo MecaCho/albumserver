@@ -37,10 +37,10 @@ type Album struct {
 	IncID int64
 	Id string `json:"id"`
 	Name string `json:"name"`
-	UploadTime string
-	Size int
-	Photos []Photo
-	UserID string
+	UploadTime string `json:"upload_time"`
+	Size int `json:"size"`
+	Photos []Photo `json:"photos"`
+	UserID string `json:"user_id"`
 }
 
 var TempAlbumList []Album
