@@ -2,10 +2,11 @@ package main
 
 import (
 	_ "album_server/routers"
-	"github.com/astaxie/beego"
+	"album_server/controllers"
 )
 
 func main() {
-	beego.Run()
+	//beego.Run()
+	controllers.UploadFile()
 }
 

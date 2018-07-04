@@ -91,6 +91,8 @@ func (c *PhotoController) UploadPhoto() {
 
 func (c PhotoController) PostPhoto(){
 	photoID := strconv.Itoa(rand.Int())
+	body := c.Ctx.Input.RequestBody
+	fmt.Println(string(body))
 	photoUploadTime := time.Now().String()
 	PhotoNum = int64(len(PhotosList))
 	PhotoNum++
