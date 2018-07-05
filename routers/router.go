@@ -6,9 +6,21 @@ import (
 )
 
 func init() {
+	//Login
+
+	beego.Router("/", &controllers.LoginController{}, "GET:Loginpage")
+
+	beego.Router("/login", &controllers.LoginController{}, "POST:Login")
+
+	//AlbumNS := beego.NewNamespace("/v1",
+	//	beego.NSNamespace("/:user_id",
+	//		beego.NSRouter("/",&controllers.LoginController{},"GET:Login"),
+	//	),
+	//)
 
 	AlbumNS := beego.NewNamespace("/v1",
 			beego.NSNamespace("/:user_id",
+				beego.NSRouter("/index",&controllers.AlbumController{},"GET:ListAlbums"),
 				beego.NSRouter("/albums",&controllers.AlbumController{},"GET:ListAlbums"),
 				beego.NSRouter("/albums",&controllers.AlbumController{},"POST:PostAlbum"),
 				beego.NSRouter("/albums/:album_id",&controllers.AlbumController{},"GET:GetAlbum"),
