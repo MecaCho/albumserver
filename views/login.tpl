@@ -13,7 +13,7 @@
 
 <form id="loginform">
 
-    id:<input type="text" name="username" value="{{.Username}}"><br>
+    id:<input type="text" name="username" value="{{.Username}}" id="userinput"><br>
 
     pw:<input type="password" name="password" value="{{.Password}}"><br>
 
@@ -28,6 +28,7 @@
     $(function(){
 
         $('#loginbtn').bind('click', function(){
+
 
             $.ajax({
 
@@ -47,7 +48,9 @@
 
                     if(res){
 
-                        window.location.href = "/v1/{{.Username}}/index";
+                        var x = document.getElementById("userinput").value;
+                        console.log(x);
+                        window.location.href = "/v1/"+x+"/index";
 
                     }else{
 

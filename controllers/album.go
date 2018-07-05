@@ -49,7 +49,7 @@ var AlbumNum int64
 
 func (c *AlbumController) ListAlbums() {
 	userId := c.GetString(":user_id")
-	fmt.Println("List Album list : ",TempAlbumList)
+	fmt.Printf("User (%s) Album list : %#v",userId,TempAlbumList)
 	tempAlbumList := []Album{}
 	for _,v := range(TempAlbumList){
 		if v.UserID == userId{

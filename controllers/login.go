@@ -31,7 +31,7 @@ func (c *LoginController) Login() {
 
 		// c.SetSecureCookie(beego.AppConfig.String("cookie.secure"), beego.AppConfig.String("cookie.role"), user.Role, 1*1*20*60, beego.AppConfig.String("cookie.domain"), "/", false, true)
 		fmt.Println("Login success ")
-		c.Redirect("v1/username/index", 302)
+		c.Redirect("v1/"+username+"/index", 302)
 		fmt.Println("Redirect to index ")
 		//c.TplName = "index.tpl"
 
