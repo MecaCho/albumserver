@@ -89,7 +89,7 @@ func (c *PhotoController) UploadPhoto() {
 	return
 }
 
-func (c PhotoController) PostPhoto(){
+func (c *PhotoController) PostPhoto(){
 	photoID := strconv.Itoa(rand.Int())
 	body := c.Ctx.Input.RequestBody
 	fmt.Println(string(body))

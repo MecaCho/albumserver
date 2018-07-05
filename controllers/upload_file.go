@@ -5,7 +5,44 @@ import (
 	"io"
 	"fmt"
 	"os"
+	"github.com/astaxie/beego"
 )
+
+type FileController struct {
+	beego.Controller
+}
+
+
+func (this *FileController) UploadImage(){
+	r := this.Ctx.Request
+
+	file, head, err := r.FormFile("file")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer file.Close()
+	//创建文件
+	fW, err := os.Create(upload_path + head.Filename)
+	if err != nil {
+		this.Ctx.Output.Body([]byte("文件创建失败"))
+		return
+	}
+	defer fW.Close()
+	_, err = io.Copy(fW, file)
+	if err != nil {
+		this.Ctx.Output.Body([]byte("文件保存失败"))
+		return
+	}
+	//io.WriteString(w, head.Filename+" 保存成功")
+	//http.Redirect(w, r, "/success", http.StatusFound)
+	this.Ctx.Output.Body([]byte(head.Filename+" \n Upload Success"))
+
+}
+
+func (this *FileController) GetUploadPage(){
+	this.TplName = "upload.tpl"
+}
 
 const (
 	upload_path string = "./upload/"
@@ -13,7 +50,6 @@ const (
 
 func load_success(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, "上传成功!")
-
 }
 
 //上传

@@ -21,6 +21,8 @@ func init() {
 	AlbumNS := beego.NewNamespace("/v1",
 			beego.NSNamespace("/:user_id",
 				beego.NSRouter("/index",&controllers.AlbumController{},"GET:Albumpage"),
+				beego.NSRouter("/upload",&controllers.FileController{},"POST:UploadImage"),
+				beego.NSRouter("/upload",&controllers.FileController{},"GET:GetUploadPage"),
 				beego.NSRouter("/albums",&controllers.AlbumController{},"GET:ListAlbums"),
 				beego.NSRouter("/albums",&controllers.AlbumController{},"POST:PostAlbum"),
 				beego.NSRouter("/albums/:album_id",&controllers.AlbumController{},"GET:GetAlbum"),
@@ -40,7 +42,7 @@ func init() {
 	)
 	beego.AddNamespace(AlbumNS)
 	beego.AddNamespace(PhotoNS)
-	//beego.Router("/", &controllers.MainController{})
+	beego.Router("/files", &controllers.MainController{})
 	//beego.Router("/albums",&controllers.PhotoController{},"*:ListPhotos")
 	//beego.Router("/album/post",&controllers.PhotoController{},"*:PostPhoto")
 }

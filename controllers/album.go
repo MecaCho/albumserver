@@ -18,6 +18,7 @@ type AlbumController struct {
 
 
 func (c *AlbumController) Albumpage() {
+	//c.HandlerFunc("/upload")
 	//http.Handle("/upload",http.FileServer(http.Dir("./upload/")))
 	c.Data["Username"] = "qwq"
 	c.TplName = "album.tpl"
