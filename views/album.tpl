@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{.Username}}的相册</title>
+    <style type="text/css">
+        img{width:420px;height:580px;}
+        div{
+            width:420px;
+            height:580px;
+            position:absolute;
+            left:0;top:0;right:0;bottom:0;
+            margin:auto;
+            transform-style: preserve-3d;
+            transition: all 12s;
+            background:url(/static/img/1.jpg);
+            background-size: 100% 100%;
+        }
+        div img{
+            position: absolute;
+        }
+        div img:nth-child(1){transform: translateZ(500px);}
+        div img:nth-child(2){transform: rotateY(60deg) translateZ(500px) ;}
+        div img:nth-child(3){transform: rotateY(120deg) translateZ(500px) ;}
+        div img:nth-child(4){transform: rotateY(180deg) translateZ(500px) ;}
+        div img:nth-child(5){transform: rotateY(240deg) translateZ(500px) ;}
+        div img:nth-child(6){transform: rotateY(300deg) translateZ(500px) ;}
+        div:hover{
+            transform: rotateY(720deg) rotateX(45deg);
+        }
+    </style>
+</head>
+<body bgcolor="#808080">
+<div>
+    <img src="/static/img/1.jpg" alt="" />
+    <img src="/upload/2.jpg" alt="" />
+    <img src="/upload/3.jpg" alt="" />
+    <img src="/upload/4.jpg" alt="" />
+</div>
+<audio src="upload/gaobaiqiqiu.mp3" autoplay="autoplay" loop="loop"></audio>
+</body>
+</html>

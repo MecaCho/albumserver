@@ -18,15 +18,9 @@ type AlbumController struct {
 
 
 func (c *AlbumController) Albumpage() {
-
-	c.Data["Username"] = "loongc"
-
-	c.Data["Password"] = "123"
-
-	c.Data["Error"] = ""
-
-	c.TplName = "login.tpl"
-
+	//http.Handle("/upload",http.FileServer(http.Dir("./upload/")))
+	c.Data["Username"] = "qwq"
+	c.TplName = "album.tpl"
 }
 
 type AlbumList struct {

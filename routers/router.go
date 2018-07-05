@@ -20,7 +20,7 @@ func init() {
 
 	AlbumNS := beego.NewNamespace("/v1",
 			beego.NSNamespace("/:user_id",
-				beego.NSRouter("/index",&controllers.AlbumController{},"GET:ListAlbums"),
+				beego.NSRouter("/index",&controllers.AlbumController{},"GET:Albumpage"),
 				beego.NSRouter("/albums",&controllers.AlbumController{},"GET:ListAlbums"),
 				beego.NSRouter("/albums",&controllers.AlbumController{},"POST:PostAlbum"),
 				beego.NSRouter("/albums/:album_id",&controllers.AlbumController{},"GET:GetAlbum"),
