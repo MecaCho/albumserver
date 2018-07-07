@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"strconv"
 	"math/rand"
+	"album_server/models/db"
+	"strings"
 )
 
 
@@ -18,8 +20,21 @@ type AlbumController struct {
 
 
 func (c *AlbumController) Albumpage() {
+	user_id := c.GetString(":user_id")
 	//c.HandlerFunc("/upload")
 	//http.Handle("/upload",http.FileServer(http.Dir("./upload/")))
+	photoFilePathList,_ := db.ListPhotosByUserID(user_id)
+	//ret = <img src="/static/img/1.jpg" alt="" />
+	ret := ""
+	for k,v := range(photoFilePathList){
+		fmt.Println("Photo Path : ",k,v)
+		ret += "<img src=\""
+		ret +=  strings.TrimLeft(v.FilePath,".")
+		ret += "\" alt=\"\" />"
+	}
+	fmt.Println(ret)
+	c.Data["BackGroundImage"] = strings.TrimLeft(v.FilePath,".")
+	c.Data["ImgSrc"] = ret
 	c.Data["Username"] = "qwq"
 	c.TplName = "album.tpl"
 }

@@ -13,7 +13,7 @@
             margin:auto;
             transform-style: preserve-3d;
             transition: all 12s;
-            background:url(/static/img/1.jpg);
+            background:url({{.BackGroundImage}});
             background-size: 100% 100%;
         }
         div img{
@@ -32,10 +32,7 @@
 </head>
 <body bgcolor="#808080">
 <div>
-    <img src="/static/img/1.jpg" alt="" />
-    <img src="/upload/2.jpg" alt="" />
-    <img src="/upload/3.jpg" alt="" />
-    <img src="/upload/4.jpg" alt="" />
+    {{str2html .ImgSrc}}
 </div>
 <audio src="upload/gaobaiqiqiu.mp3" autoplay="autoplay" loop="loop"></audio>
 </body>

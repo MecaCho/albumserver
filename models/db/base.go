@@ -8,7 +8,7 @@ import (
 var ORM_ orm.Ormer
 
 func init() {
-	orm.RegisterDataBase("default", "mysql", "root:Huawei@123@tcp(100.114.234.225:3306)/albumserver?charset=utf8", 10)
+	orm.RegisterDataBase("default", "mysql", "root:QWQ920403@ty@tcp(127.0.0.1:3306)/albumserver?charset=utf8", 10)
 
 	orm.RegisterModel(new(User), new(Album), new(Photo))
 
