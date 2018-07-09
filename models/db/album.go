@@ -63,7 +63,7 @@ func DeleteAlbum(photoId string) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("Delete Group : %#v , %s", photo, id)
+	fmt.Printf("Delete Group : %#v , %s" , photo, id)
 	return nil
 }
 
