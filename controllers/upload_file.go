@@ -1,12 +1,12 @@
 package controllers
 
 import (
-	"net/http"
-	"io"
-	"fmt"
-	"os"
-	"github.com/astaxie/beego"
 	"album_server/models/db"
+	"fmt"
+	"github.com/astaxie/beego"
+	"io"
+	"net/http"
+	"os"
 )
 
 type FileController struct {
@@ -17,8 +17,7 @@ const (
 	upload_path string = "./static/img/"
 )
 
-
-func (this *FileController) UploadImage(){
+func (this *FileController) UploadImage() {
 	user_id := this.GetString(":user_id")
 
 	r := this.Ctx.Request
@@ -30,12 +29,12 @@ func (this *FileController) UploadImage(){
 	}
 	defer file.Close()
 	//创建文件
-	if _,err := os.Stat(upload_path + user_id);err != nil{
+	if _, err := os.Stat(upload_path + user_id); err != nil {
 		//fmt.Println(sta.IsDir())
-		err = os.Mkdir(upload_path + user_id,0777)
+		err = os.Mkdir(upload_path+user_id, 0777)
 		if err != nil {
 			fmt.Println(err.Error())
-			this.Ctx.Output.Body([]byte("文件夹创建失败 : "+upload_path + user_id+err.Error()))
+			this.Ctx.Output.Body([]byte("文件夹创建失败 : " + upload_path + user_id + err.Error()))
 			return
 		}
 	}
@@ -44,18 +43,18 @@ func (this *FileController) UploadImage(){
 	fW, err := os.Create(filePath)
 	if err != nil {
 		fmt.Println(err.Error())
-		this.Ctx.Output.Body([]byte("文件创建失败 : "+err.Error()))
+		this.Ctx.Output.Body([]byte("文件创建失败 : " + err.Error()))
 		return
 	}
 	defer fW.Close()
 	_, err = io.Copy(fW, file)
 	if err != nil {
-		this.Ctx.Output.Body([]byte("文件保存失败 : "+err.Error()))
+		this.Ctx.Output.Body([]byte("文件保存失败 : " + err.Error()))
 		return
 	}
-	fileInfo,err := os.Stat(filePath)
-	if err != nil{
-		fmt.Println("Read file Info error : ",err.Error())
+	fileInfo, err := os.Stat(filePath)
+	if err != nil {
+		fmt.Println("Read file Info error : ", err.Error())
 	}
 	photo := db.Photo{}
 	photo.AlbumID = "test"
@@ -69,11 +68,11 @@ func (this *FileController) UploadImage(){
 	db.InsertPhoto(photo)
 	//io.WriteString(w, head.Filename+" 保存成功")
 	//http.Redirect(w, r, "/success", http.StatusFound)
-	this.Ctx.Output.Body([]byte(head.Filename+" \n Upload Success"))
+	this.Ctx.Output.Body([]byte(head.Filename + " \n Upload Success"))
 
 }
 
-func (this *FileController) GetUploadPage(){
+func (this *FileController) GetUploadPage() {
 	this.TplName = "upload.tpl"
 }
 
@@ -122,7 +121,7 @@ func UploadFile() {
 	http.HandleFunc("/success", load_success)
 	//上传
 	http.HandleFunc("/upload", uploadHandle)
-	http.Handle("/",http.FileServer(http.Dir("./upload/")))
+	http.Handle("/", http.FileServer(http.Dir("./upload/")))
 	//mux := http.NewServeMux()
 	//mux.Handle("/view/",http.StripPrefix("/view/",http.FileServer(http.Dir("./upload/"))))
 	err := http.ListenAndServe(":8080", nil)
@@ -132,4 +131,3 @@ func UploadFile() {
 	}
 	fmt.Println("服务器启动成功")
 }
-

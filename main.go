@@ -23,10 +23,8 @@ func main() {
 	//}
 	//fmt.Println(sta)
 
-
 	//album := db.Album{123,"","","",123,123,nil,"hjhj"}
 	//ph := db.Photo{123,"fkfjkldfjls","name","",123,"","",&album}
 	//db.InsertPhoto(ph)
 	//controllers.UploadFile()
 }
-

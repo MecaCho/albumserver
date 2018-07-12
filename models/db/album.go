@@ -25,6 +25,7 @@ func InsertAlbum(photo Album) error {
 	return nil
 }
 
+
 func GetAlbum(photoId string) (Album, error) {
 	var photo Album
 	qs := ORM_.QueryTable(photo)

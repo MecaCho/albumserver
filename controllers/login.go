@@ -1,16 +1,14 @@
 package controllers
 
 import (
-	"github.com/astaxie/beego"
 	"album_server/models"
 	"fmt"
+	"github.com/astaxie/beego"
 )
 
 type LoginController struct {
 	beego.Controller
 }
-
-
 
 func (c *LoginController) Loginpage() {
 	c.Data["Username"] = "qwq"
@@ -19,14 +17,12 @@ func (c *LoginController) Loginpage() {
 	c.TplName = "login.tpl"
 }
 
-
-
 func (c *LoginController) Login() {
 
 	flash := beego.NewFlash()
 	fmt.Println("Get ...")
 	username, password := c.Input().Get("username"), c.Input().Get("password")
-	fmt.Println("user info : ",username,password)
+	fmt.Println("user info : ", username, password)
 	if flag, _ := models.Login(username, password); flag {
 
 		// c.SetSecureCookie(beego.AppConfig.String("cookie.secure"), beego.AppConfig.String("cookie.role"), user.Role, 1*1*20*60, beego.AppConfig.String("cookie.domain"), "/", false, true)
