@@ -2,44 +2,35 @@ package db
 
 import (
 	"fmt"
-	"strings"
 	"time"
-	"reflect"
 )
 
-func GetTableName(t interface{})string {
-	structTypeName := reflect.TypeOf(t).Name()
-	fmt.Println(structTypeName)
-	ret := strings.ToLower(structTypeName)
-	fmt.Println(ret)
-	return ret
-}
 
-func InsertPhoto(photo Photo) error {
+func InsertUser(user User) error {
 	var maxIncID int
-	rawQuery := fmt.Sprintf("SELECT max(inc_id) from %s",GetTableName(photo))
+	rawQuery := fmt.Sprintf("SELECT max(inc_id) from %s",GetTableName(user))
 	err := ORM_.Raw(rawQuery).QueryRow(&maxIncID)
-	photo.IncID = maxIncID + 1
-	photo.UploadTime = time.Now().String()
+	user.IncID = maxIncID + 1
+	user.UpdatedAt = time.Now().String()
 
-	fmt.Printf("Insert Photo : %#v", photo)
-	id, err := ORM_.Insert(&photo)
+	fmt.Printf("Insert Photo : %#v", user)
+	id, err := ORM_.Insert(&user)
 	if err != nil {
-		fmt.Printf("Insert Photo (%q) Error (%d) : (%q)\n", photo.Id, id, err)
+		fmt.Printf("Insert Photo (%q) Error (%d) : (%q)\n", user.Id, id, err)
 		return err
 	}
-	fmt.Printf("Insert Photo (%q) Success : %d", photo.Id, id)
+	fmt.Printf("Insert Photo (%q) Success : %d", user.Id, id)
 	return nil
 }
 
-func GetPhoto(photoId string) (Photo, error) {
-	var photo Photo
-	qs := ORM_.QueryTable(photo)
-	num, err := qs.Filter("id", photoId).All(&photo)
+func GetUser(userName string) (string, error) {
+	var user User
+	qs := ORM_.QueryTable(user)
+	num, err := qs.Filter("Name", userName).All(&user)
 	if err != nil {
-		fmt.Printf("Get Photo (%s) Error : (%q) , %s \n", photoId, err, num)
-		return photo, err
+		fmt.Printf("Get User (%s) Error : (%q) , %s \n", userName, err, num)
+		return "", err
 	}
-	fmt.Printf("Get Photo (%q) Success: %#v , %s", photoId, photo, num)
-	return photo, nil
+	fmt.Printf("Get PWD (%q) Success: %#v , %s", userName, user, num)
+	return user.Password, nil
 }
