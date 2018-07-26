@@ -24,23 +24,15 @@ func (c *LoginController) Login() {
 	username, password := c.Input().Get("username"), c.Input().Get("password")
 	fmt.Println("user info : ", username, password)
 	if flag, _ := models.Login(username, password); flag {
-
 		// c.SetSecureCookie(beego.AppConfig.String("cookie.secure"), beego.AppConfig.String("cookie.role"), user.Role, 1*1*20*60, beego.AppConfig.String("cookie.domain"), "/", false, true)
 		fmt.Println("Login success ")
 		c.Redirect("v1/"+username+"/index", 302)
 		fmt.Println("Redirect to index ")
 		//c.TplName = "index.tpl"
-
 		return
-
 	} else {
-
 		flash.Error("username or password error")
-
 		c.Redirect("/error", 302)
-
 		return
-
 	}
-
 }
