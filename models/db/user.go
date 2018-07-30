@@ -28,10 +28,10 @@ func GetUser(userName string) (User, error) {
 	qs := ORM_.QueryTable(user)
 	num, err := qs.Filter("Name", userName).All(&user)
 	if err != nil {
-		fmt.Printf("Get User (%s) Error : (%q) , %s \n", userName, err, num)
+		fmt.Printf("Get User (%s) Error : (%q) , %d \n", userName, err, num)
 		return user, err
 	}
-	fmt.Printf("Get PWD (%q) Success: %#v , %s", userName, user, num)
+	fmt.Printf("Get PWD (%q) Success: %#v , %d", userName, user, num)
 	return user, nil
 }
 
@@ -40,9 +40,9 @@ func GetUserPWD(userName string) (string, error) {
 	qs := ORM_.QueryTable(user)
 	num, err := qs.Filter("Name", userName).All(&user)
 	if err != nil {
-		fmt.Printf("Get User (%s) Error : (%q) , %s \n", userName, err, num)
+		fmt.Printf("Get User (%s) Error : (%q) , %d \n", userName, err, num)
 		return "", err
 	}
-	fmt.Printf("Get PWD (%q) Success: %#v , %s", userName, user, num)
+	fmt.Printf("Get PWD (%q) Success: %#v , %d", userName, user, num)
 	return user.Password, nil
 }
