@@ -15,6 +15,29 @@ type AlbumController struct {
 	beego.Controller
 }
 
+
+func (c *AlbumController) AlbumIndex() {
+	user_id := c.GetString(":user_id")
+	//c.HandlerFunc("/upload")
+	//http.Handle("/upload",http.FileServer(http.Dir("./upload/")))
+	photoFilePathList, _ := db.ListAlbums(user_id)
+	//ret = <img src="/static/img/1.jpg" alt="" />
+	ret := ""
+	bgPath := ""
+	for k, v := range photoFilePathList {
+		fmt.Println("Photo Path : ", k, v)
+		ret += "<img src=\""
+		ret += strings.TrimLeft(v.FilePath, ".")
+		ret += "\" alt=\"\" />"
+		bgPath = v.FilePath
+	}
+	fmt.Println(ret)
+	c.Data["BackGroundImage"] = strings.TrimLeft(bgPath, ".")
+	c.Data["ImgSrc"] = ret
+	c.Data["Username"] = user_id
+	c.TplName = "index.tpl"
+}
+
 func (c *AlbumController) Albumpage() {
 	user_id := c.GetString(":user_id")
 	//c.HandlerFunc("/upload")
@@ -22,16 +45,18 @@ func (c *AlbumController) Albumpage() {
 	photoFilePathList, _ := db.ListPhotosByUserID(user_id)
 	//ret = <img src="/static/img/1.jpg" alt="" />
 	ret := ""
+	bgPath := ""
 	for k, v := range photoFilePathList {
 		fmt.Println("Photo Path : ", k, v)
 		ret += "<img src=\""
 		ret += strings.TrimLeft(v.FilePath, ".")
 		ret += "\" alt=\"\" />"
+		bgPath = v.FilePath
 	}
 	fmt.Println(ret)
-	c.Data["BackGroundImage"] = strings.TrimLeft(v.FilePath, ".")
+	c.Data["BackGroundImage"] = strings.TrimLeft(bgPath, ".")
 	c.Data["ImgSrc"] = ret
-	c.Data["Username"] = "qwq"
+	c.Data["Username"] = user_id
 	c.TplName = "album.tpl"
 }
 
