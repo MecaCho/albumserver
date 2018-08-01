@@ -18,13 +18,10 @@ type AlbumController struct {
 
 func (c *AlbumController) AlbumIndex() {
 	user_id := c.GetString(":user_id")
-	//c.HandlerFunc("/upload")
-	//http.Handle("/upload",http.FileServer(http.Dir("./upload/")))
-	photoFilePathList, _ := db.ListAlbums(user_id)
-	//ret = <img src="/static/img/1.jpg" alt="" />
+	AlbumList, _ := db.ListAlbums(user_id)
 	ret := ""
 	bgPath := ""
-	for k, v := range photoFilePathList {
+	for k, v := range AlbumList {
 		fmt.Println("Photo Path : ", k, v)
 		ret += "<img src=\""
 		ret += strings.TrimLeft(v.FilePath, ".")
